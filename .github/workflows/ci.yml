@@ -19,11 +19,11 @@ jobs:
           node-version: '14'
 
       - name: Install backend
-        run: 
+        run: |
           cd backend
           npm install
 
       - name: Install frontend
-        run: 
+        run: |
           cd frontend
           npm install
