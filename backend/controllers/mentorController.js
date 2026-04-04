@@ -1,53 +1,46 @@
 const Mentor = require("../models/mentorModel");
 
-// CREATE Mentor
-const createMentor = async (req, res) => {
+// CREATE
+exports.createMentor = async (req, res) => {
   try {
     const mentor = new Mentor(req.body);
-await mentor.save();
+    await mentor.save();
     res.status(201).json(mentor);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// GET all Mentors
-const getMentors = async (req, res) => {
+// READ
+exports.getMentors = async (req, res) => {
   try {
     const mentors = await Mentor.find();
-    res.status(200).json(mentors);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.json(mentors);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// UPDATE Mentor
-const updateMentor = async (req, res) => {
+// UPDATE
+exports.updateMentor = async (req, res) => {
   try {
     const mentor = await Mentor.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    res.status(200).json(mentor);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.json(mentor);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// DELETE Mentor
-const deleteMentor = async (req, res) => {
+// DELETE
+exports.deleteMentor = async (req, res) => {
   try {
     await Mentor.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Mentor deleted" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.json({ message: "Mentor deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-};
-
-module.exports = {
-  createMentor,
-  getMentors,
-  updateMentor,
-  deleteMentor,
 };
